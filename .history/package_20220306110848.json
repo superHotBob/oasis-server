@@ -27,7 +27,6 @@
     "@nomiclabs/hardhat-waffle": "^2.0.2",
     "@pinata/sdk": "^1.1.23",
     "axios": "^0.26.0",
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "contentful": "^6.0.0",
     "cookie-parser": "~1.4.3",
@@ -37,12 +36,10 @@
     "express": "^4.16.2",
     "hardhat": "^2.8.4",
     "helmet": "^3.11.0",
-    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.5",
     "marked": "^0.3.16",
     "morgan": "^1.9.1",
     "nft.storage": "^6.0.0",
-    "pg": "^8.7.3",
     "pug": "~2.0.0-beta6"
   },
   "devDependencies": {
@@ -55,7 +52,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "jest": "^22.4.0",
-    "nodemon": "^1.19.4",
+    "nodemon": "^1.18.9",
     "supertest": "^3.0.0",
     "yargs": "^11.0.0"
   }
