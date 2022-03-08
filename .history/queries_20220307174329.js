@@ -14,27 +14,6 @@ const getUsers = (request, response) => {
     response.status(200).json(results.rows)
   })
 }
-const updateBlock = (a) => {
-  pool.query('UPDATE lastblock SET block = $1', [a], (error, results) => {
-    if (error) {
-      throw error
-    }
-  })
-}
-const readBlock = () => {
-  pool.query('SELECT block FROM  lastblock ').then((res) => {
-    return res.rows[0].block
-  })
-}
-
-const transactions = (req, res) => {
-  pool.query('SELECT * FROM  activity ', (error, results) => {
-    if (error) {
-      throw error
-    }
-    res.json(results.rows)
-  })
-}
 
 const getUserById = (request, response) => {
   const id = parseInt(request.params.walletAddress)
@@ -53,16 +32,12 @@ const getUserById = (request, response) => {
 }
 
 const writeActivity = (a, b, c) => {
-  console.log(a, b, c)
-  pool.query(
-    'INSERT INTO activity  VALUES ($1, $2, $3)',
-    [a, b, c],
-    (error, results) => {
-      if (error) {
-        throw error
-      }
+  console.log(a, b, c)  
+  pool.query('INSERT INTO activity VALUE from = $1, to = $2, tokenId = $3', [a, b, c], (error, results) => {
+    if (error) {
+      throw error
     }
-  )
+  })
 }
 const createUser = (request, response) => {
   const { walletAddress } = request.body
@@ -131,8 +106,5 @@ module.exports = {
   updateUser,
   addTransfer,
   deleteUser,
-  writeActivity,
-  updateBlock,
-  readBlock,
-  transactions
+  writeActivity
 }

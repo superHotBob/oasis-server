@@ -55,7 +55,7 @@ const getUserById = (request, response) => {
 const writeActivity = (a, b, c) => {
   console.log(a, b, c)
   pool.query(
-    'INSERT INTO activity  VALUES ($1, $2, $3)',
+    'INSERT INTO activity VALUES (from = $1, to = $2, tokenId = $3)',
     [a, b, c],
     (error, results) => {
       if (error) {
