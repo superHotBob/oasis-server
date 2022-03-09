@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken')
 const db = require('./queries')
 const activity = require('./services/activity')
 
+
 const app = express()
 
 const auth = require('./middleware/auth')
@@ -18,13 +19,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-setInterval(() => activity(), 60000)
 
-app.post('/api/minting', db.writeMinting, (req, res) => {
+setInterval(() => activity(), 600000)
 
-})
 app.post('/api/transfer', db.addTransfer, (req, res) => {
-
+ 
 })
 app.get('/api/transactions', auth, db.transactions, (req, res) => {
 
@@ -40,22 +39,21 @@ app.post('/api/login', db.updateUser, async (req, res) => {
       res.status(400).send('All input is required')
     }
 
-    // const user = {_id: 100, walletAddress: walletAddress}
+    const user = {_id: 100, walletAddress: walletAddress}
     if (walletAddress) {
-    //   const refreshToken = jwt.sign({ walletAddress }, '09f26e402586e2faa8', {
-    //     expiresIn: '1h'
-    //   })
       const token = jwt.sign(
-        { walletAddress },
-        '09f26e402586e2faa8da4c98a35f1b20d6b033c60',
-        { expiresIn: '10m' }
+        { user_id: user._id, walletAddress },
+        'fsdhfsdhfgsdhfgsdhgf',
+        {
+          expiresIn: '2h'
+        }
       )
       // Save user token
-    
-    //   console.log( token)
+      user.token = token
+      console.log(token)
 
       // User
-      res.status(200).json( token )
+      res.status(200).json(user)
     }
     // Res.status(400).send('Invalid Credentials')
   } catch (err) {

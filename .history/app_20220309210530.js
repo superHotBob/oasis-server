@@ -52,7 +52,7 @@ app.post('/api/login', db.updateUser, async (req, res) => {
       )
       // Save user token
     
-    //   console.log( token)
+      console.log( token)
 
       // User
       res.status(200).json( token )

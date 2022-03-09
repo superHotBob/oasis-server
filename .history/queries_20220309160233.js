@@ -64,18 +64,6 @@ const writeActivity = (a, b, c) => {
     }
   )
 }
-const writeMinting = (a, b, c, d, e) => {
-  console.log(a, b, c, d, e)
-  pool.query(
-    'INSERT INTO tokens  VALUES ($1, $2, $3 , $4 ,$5 )',
-    [a, b, c, d, e],
-    (error, results) => {
-      if (error) {
-        throw error
-      }
-    }
-  )
-}
 const createUser = (request, response) => {
   const { walletAddress } = request.body
   console.log(walletAddress)
@@ -165,6 +153,5 @@ module.exports = {
   writeActivity,
   updateBlock,
   readBlock,
-  transactions,
-  writeMinting
+  transactions
 }

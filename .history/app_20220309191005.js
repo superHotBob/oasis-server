@@ -42,9 +42,9 @@ app.post('/api/login', db.updateUser, async (req, res) => {
 
     // const user = {_id: 100, walletAddress: walletAddress}
     if (walletAddress) {
-    //   const refreshToken = jwt.sign({ walletAddress }, '09f26e402586e2faa8', {
-    //     expiresIn: '1h'
-    //   })
+      const refreshToken = jwt.sign({ walletAddress }, '09f26e402586e2faa8', {
+        expiresIn: '1h'
+      })
       const token = jwt.sign(
         { walletAddress },
         '09f26e402586e2faa8da4c98a35f1b20d6b033c60',
@@ -52,10 +52,10 @@ app.post('/api/login', db.updateUser, async (req, res) => {
       )
       // Save user token
     
-    //   console.log( token)
+      console.log('token', token, 'refreshToken', refreshToken)
 
       // User
-      res.status(200).json( token )
+      res.status(200).json({token: token , refreshToken: refreshToken})
     }
     // Res.status(400).send('Invalid Credentials')
   } catch (err) {
