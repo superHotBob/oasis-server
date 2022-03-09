@@ -1,4 +1,4 @@
-
+const path = require('path')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 const db = require('./queries')
 const activity = require('./services/activity')
 
-
+// Const port = process.env.PORT || 5000
 const app = express()
 
 const auth = require('./middleware/auth')
@@ -18,17 +18,17 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
+// App.use(express.static(path.join(__dirname, 'public')))
 
-
-setInterval(() => activity(), 600000)
+setInterval(() => activity(), 60000)
 
 app.post('/api/transfer', db.addTransfer, (req, res) => {
   res.send('Good transer')
 })
-app.get('/api/transactions', auth, db.transactions, (req, res) => {
+app.get('/api/transactions', db.transactions, (req, res) => {
 
 })
-app.post('/api/login', db.updateUser, async (req, res) => {
+app.post('/api/login',  async (req, res) => {
   // Our login logic starts here
   try {
     // Get user input

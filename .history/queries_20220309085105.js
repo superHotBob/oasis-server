@@ -94,39 +94,21 @@ const addTransfer = (request, response) => {
 }
 
 const updateUser = (request, response, next) => {
-  const { walletAddress, date, balance, firstdate = new Date() } = request.body
-
-  console.log(balance, walletAddress, date, firstdate)
+  const { walletAddress, date } = request.body
+  const balance = 100
+  console.log(balance, walletAddress, date)
 
   pool.query(
-    'SELECT user FROM users WHERE user = $1',
-    [walletAddress],
+    'UPDATE users SET balance = $1, date = $3 WHERE user = $2',
+    [balance, walletAddress, date],
     (error, results) => {
       if (error) {
-        pool.query(
-          'INSERT users VALUES balance = $1, user = $2, firstlogin = firstdate ',
-          [balance, walletAddress, date, firstdate],
-          (error, results) => {
-            if (error) {
-              throw error
-            }
-          }
-        )
-        next()
-      } else {
-        pool.query(
-          'UPDATE users SET balance = $1, date = $3 WHERE user = $2',
-          [balance, walletAddress, date],
-          (error, results) => {
-            if (error) {
-              throw error
-            }
-          }
-        )
-        next()
+        throw error
       }
+      response.status(200).send(`User modified with balance: ${balance}`)
     }
   )
+  next()
 }
 
 const deleteUser = (request, response) => {

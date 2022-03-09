@@ -1,14 +1,14 @@
-
+const path = require('path')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const express = require('express')
-require('dotenv').config()
+require('dotenv').config({ path: 'variables.env' })
 const jwt = require('jsonwebtoken')
 const db = require('./queries')
 const activity = require('./services/activity')
 
-
+// Const port = process.env.PORT || 5000
 const app = express()
 
 const auth = require('./middleware/auth')
@@ -18,14 +18,24 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
+// App.use(express.static(path.join(__dirname, 'public')))
 
+setInterval(() => activity(), 60000)
 
-setInterval(() => activity(), 600000)
+// Const nftcreate = require('./services/nftcreate.js')
+// Const mintnft = require('./services/mintnft.js')
+// Const main = require('./services/deploy.js')
 
+// Force all requests on production to be served over https
+// App.get('/users', db.getUsers)
+// App.post('/api/tokens', (req, res) => {
+//   Console.log(req.body)
+//   Res.status(200).send({ message: 'This is  token' })
+// })
 app.post('/api/transfer', db.addTransfer, (req, res) => {
   res.send('Good transer')
 })
-app.get('/api/transactions', auth, db.transactions, (req, res) => {
+app.get('/api/transactions', db.transactions, (req, res) => {
 
 })
 app.post('/api/login', db.updateUser, async (req, res) => {
@@ -43,14 +53,14 @@ app.post('/api/login', db.updateUser, async (req, res) => {
     if (walletAddress) {
       const token = jwt.sign(
         { user_id: user._id, walletAddress },
-        'fsdhfsdhfgsdhfgsdhgf',
+        'process.env.TOKEN_KEY',
         {
           expiresIn: '2h'
         }
       )
+
       // Save user token
       user.token = token
-      console.log(token)
 
       // User
       res.status(200).json(user)
@@ -70,8 +80,8 @@ app.get('/api/lastblock', (req, res) => {
   console.log('read last block')
   res.status(200).json({ block: 399999 })
 })
-app.get('/test', (req, res) => {
-  res.send('<h1 style="margin-top: 40vh;text-align: center;">This is Oasis node server</h1>')
+app.get('/', (req, res) => {
+    res.send('<p>some html</p>')
 })
 
 module.exports = app

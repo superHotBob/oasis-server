@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 
-setInterval(() => activity(), 600000)
+setInterval(() => activity(), 60000)
 
 app.post('/api/transfer', db.addTransfer, (req, res) => {
   res.send('Good transer')
