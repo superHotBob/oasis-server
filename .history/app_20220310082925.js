@@ -36,9 +36,9 @@ app.post('/api/login', db.updateUser, async (req, res) => {
     const { walletAddress } = req.body
 
     // Validate user input
-    if (!(walletAddress)) {
-      res.status(400).send('All input is required')
-    }
+    // if (!(walletAddress)) {
+    //   res.status(400).send('All input is required')
+    // }
 
     // const user = {_id: 100, walletAddress: walletAddress}
     if (walletAddress) {
