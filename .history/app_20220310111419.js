@@ -26,7 +26,7 @@ app.post('/api/minting', db.writeMinting, (req, res) => {
 app.post('/api/transfer', db.addTransfer, (req, res) => {
 
 })
-app.get('/api/transactions', db.transactions, (req, res) => {
+app.get('/api/transactions',  db.transactions, (req, res) => {
 
 })
 app.post('/api/login', db.updateUser, async (req, res) => {
@@ -40,9 +40,10 @@ app.post('/api/login', db.updateUser, async (req, res) => {
       res.status(400).send('All input is required')
     }
 
+    // const user = {_id: 100, walletAddress: walletAddress}
     if (walletAddress) {
-    //   Const refreshToken = jwt.sign({ walletAddress }, '09f26e402586e2faa8', {
-    //     ExpiresIn: '1h'
+    //   const refreshToken = jwt.sign({ walletAddress }, '09f26e402586e2faa8', {
+    //     expiresIn: '1h'
     //   })
       const token = jwt.sign(
         { walletAddress },
@@ -50,11 +51,11 @@ app.post('/api/login', db.updateUser, async (req, res) => {
         { expiresIn: '10m' }
       )
       // Save user token
-
-      //   Console.log( token)
+    
+    //   console.log( token)
 
       // User
-      res.status(200).json(token)
+      res.status(200).json( token )
     }
     // Res.status(400).send('Invalid Credentials')
   } catch (err) {

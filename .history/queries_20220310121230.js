@@ -28,7 +28,7 @@ const readBlock = () => {
 }
 
 const transactions = (req, res) => {
-  pool.query('SELECT * FROM  home ', (error, results) => {
+  pool.query('SELECT * FROM  activity ', (error, results) => {
     if (error) {
       throw error
     }

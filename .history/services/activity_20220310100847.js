@@ -27,7 +27,6 @@ function writeMyBlock (a) {
 async function pastEvents (a) {
   const latestBlock = await web3.eth.getBlockNumber()
   writeMyBlock(latestBlock)
-  console.log(latestBlock, a)
   for (let i = +a; i <= latestBlock; i++) {
     const pastEvent = await contract.getPastEvents('AllEvents', {
       fromBlock: i,
@@ -45,7 +44,6 @@ async function pastEvents (a) {
           pastEvent[1].returnValues.tokenId
         )
       } else {
-        console.log('write')
         db.writeActivity(
           pastEvent[0].returnValues.from,
           pastEvent[0].returnValues.to,

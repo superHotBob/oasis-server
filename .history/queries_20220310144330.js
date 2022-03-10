@@ -36,6 +36,7 @@ const transactions = (req, res) => {
   })
 }
 
+
 const getUserById = (request, response) => {
   const id = parseInt(request.params.walletAddress)
   console.log(id)

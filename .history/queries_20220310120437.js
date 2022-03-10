@@ -28,7 +28,7 @@ const readBlock = () => {
 }
 
 const transactions = (req, res) => {
-  pool.query('SELECT * FROM  home ', (error, results) => {
+  pool.query('SELECT * FROM  activity ', (error, results) => {
     if (error) {
       throw error
     }
@@ -54,7 +54,7 @@ const getUserById = (request, response) => {
 const writeActivity = (a, b, c) => {
   console.log(a, b, c)
   pool.query(
-    'INSERT INTO home (author, newuser, tokenid) VALUES ($1,$2,$3)',
+    'INSERT INTO home (from, to, tokenid) VALUES ($1,$2,$3)',
     [a, b, c],
     (error, results) => {
       if (error) {
@@ -63,6 +63,7 @@ const writeActivity = (a, b, c) => {
     }
   )
 }
+
 const writeMinting = (a, b, c, d, e) => {
   console.log(a, b, c, d, e)
   pool.query(
