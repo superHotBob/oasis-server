@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-setInterval(() => activity(), 60000)
+setInterval(() => activity(), 60000000)
 
 app.post('/api/minting', db.writeMinting, (req, res) => {
 
