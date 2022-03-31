@@ -105,7 +105,7 @@ const addTransfer = (request, response) => {
 }
 
 const updateUser = (request, response, next) => {
-  const { walletAddress, date = 1111111, balance, firstdate = new Date() } = request.body
+  const { walletAddress, date, balance, firstdate = new Date() } = request.body
 
   console.log(balance, walletAddress, date, firstdate)
 
@@ -126,8 +126,8 @@ const updateUser = (request, response, next) => {
         next()
       } else {
         pool.query(
-          'UPDATE my_users SET balance = $1 WHERE user = $2',
-          [balance, walletAddress],
+          'UPDATE my_users SET balance = $1, date = $3 WHERE user = $2',
+          [balance, walletAddress, date],
           (error, results) => {
             if (error) {
               throw error

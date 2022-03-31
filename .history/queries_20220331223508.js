@@ -105,17 +105,17 @@ const addTransfer = (request, response) => {
 }
 
 const updateUser = (request, response, next) => {
-  const { walletAddress, date = 1111111, balance, firstdate = new Date() } = request.body
+  const { walletAddress, date, balance, firstdate = new Date() } = request.body
 
   console.log(balance, walletAddress, date, firstdate)
 
   pool.query(
-    'SELECT user FROM my_users WHERE user = $1',
+    'SELECT user FROM users WHERE user = $1',
     [walletAddress],
     (error, results) => {
       if (error) {
         pool.query(
-          'INSERT my_users VALUES balance = $1, user = $2 ',
+          'INSERT users VALUES balance = $1, user = $2, firstlogin = firstdate ',
           [balance, walletAddress, date, firstdate],
           (error, results) => {
             if (error) {
@@ -126,8 +126,8 @@ const updateUser = (request, response, next) => {
         next()
       } else {
         pool.query(
-          'UPDATE my_users SET balance = $1 WHERE user = $2',
-          [balance, walletAddress],
+          'UPDATE users SET balance = $1, date = $3 WHERE user = $2',
+          [balance, walletAddress, date],
           (error, results) => {
             if (error) {
               throw error
@@ -143,7 +143,7 @@ const updateUser = (request, response, next) => {
 const deleteUser = (request, response) => {
   const { walletAddress } = request.body
   pool.query(
-    'DELETE FROM my_users WHERE user = FSDFSDF',
+    'DELETE FROM users WHERE user = FSDFSDF',
     [walletAddress],
     (error, results) => {
       if (error) {

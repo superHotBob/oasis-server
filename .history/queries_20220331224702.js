@@ -126,8 +126,8 @@ const updateUser = (request, response, next) => {
         next()
       } else {
         pool.query(
-          'UPDATE my_users SET balance = $1 WHERE user = $2',
-          [balance, walletAddress],
+          'UPDATE my_users SET balance = $1, date = $3 WHERE user = $2',
+          [balance, walletAddress, 1111111],
           (error, results) => {
             if (error) {
               throw error
