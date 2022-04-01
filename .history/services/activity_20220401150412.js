@@ -1,7 +1,7 @@
 const Web3 = require('web3')
 var fs = require('fs')
 const contractABI = require('../artifacts/contracts/NFTMinter.sol/contract-abi.json')
-const contractAddress = '0x746180D2C15c82Bcd6AB893eb81a9EA534336720'
+const contractAddress = '0x2265C9ea6E9C593734e04b839B5f8a72a6427FeE'
 const db = require('../queries')
 
 const web3 = new Web3(
@@ -27,7 +27,7 @@ function writeMyBlock (a) {
 async function pastEvents (a) {
   const latestBlock = await web3.eth.getBlockNumber()
   writeMyBlock(latestBlock)
-  console.log(`from: ${a} , to: ${latestBlock} `)
+  console.log(`'from :' ${a} , 'to :' ${latestBlock} `)
   for (let i = +a; i <= latestBlock; i++) {
     const pastEvent = await contract.getPastEvents('AllEvents', {
       fromBlock: i,
